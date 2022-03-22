@@ -1,5 +1,5 @@
 class Card {
-	constructor(type, color){
+	constructor(type, colors){
 		/**
 		 * TYPES
 		 * 1 : point
@@ -14,7 +14,7 @@ class Card {
 		 * 2
 		 * 3
 		 */
-		this.color = color;
+		this.colors = colors;
 	}
 	/**
 	 * RETURNS

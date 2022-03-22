@@ -4,9 +4,7 @@ class Player {
 		this.deck = [];
 		this.draw = [];
 		this.itsTurn = false;
-		this.res = {
-			error = 
-		};
+		this.isDead = false;
 	}
 
 	topCard(){
