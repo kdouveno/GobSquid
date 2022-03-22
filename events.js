@@ -33,7 +33,7 @@ class Event{
 			Controls["p" + tapper.pos + "a" + this.tapped.pos].delete(this.tap);
 		} else {
 			tapped.forEachPlayer(function(i, j){
-				Controls["p"+i+"g"] = undefined;
+				Controls["p" + i + "g"] = undefined;
 			});
 		}
 	}
@@ -43,6 +43,7 @@ class Event{
 		} else {
 			this.end(tapper.game);
 		}
+		return true;
 	}
 	tap(){
 		if(this.update(tapper)){

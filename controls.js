@@ -1,5 +1,5 @@
 Controls = {
-	
+	game: undefined,
 	triggers: {
 		p1g: undefined,
 		p1p: undefined,
@@ -30,11 +30,23 @@ Controls = {
 		p4a3: new Set()
 	},
 	trigger: function(trigger){
-		if (Object.is(this.inputs[trigger], undefined))
+		var player = game.players[trigger[1]];
+		if (Object.is(this.triggers[trigger], undefined))
 			return console.log("This action doesn't exist");
-		this.inputs.triggers[trigger].foreach(function(fx){ //pas sur du scope
-			fx();
-		});
+		var out = 0;
+		var trigs = this.triggers[trigger];
+		if (trigs) {
+			if (typeof(trigs) == "function")
+				out |= trigs();
+			else
+			{
+				trigs.foreach((fx)=>{
+					out |= fx.call(player);
+				});
+			}
+		}
+		if (!out)
+			player.kill();
 	}
 	
 }

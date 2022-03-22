@@ -11,6 +11,7 @@ class Game {
 
 		this.turn = 0; // <=> player pos
 		this.gobLocked = false;
+		Controls.game = this;
 	}
 	initDeck(){
 		for (var color = 0; color < 3; color++) {
@@ -45,8 +46,7 @@ class Game {
 	start() {
 		this.forEachPlayer(function(i, p){
 			p.pos = i;
-			Controls["p" + i + "p"] = p.play;
-			Controls["p" + i + "g"] = p.play;
+			Controls.triggers["p" + i + "p"] = p.play;
 		});
 		this.initDeck();
 		this.distribute();
@@ -109,8 +109,5 @@ class Game {
 				this.events.add(new Event(tapper, tapped, caca[0]));
 			}
 		});
-	}
-	printGame(){
-
 	}
 }

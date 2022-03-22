@@ -5,7 +5,6 @@ class Player {
 		this.pos = pos;
 		this.deck = [];
 		this.draw = [];
-		this.itsTurn = false;
 		this.isDead = false;
 	}
 
@@ -13,8 +12,12 @@ class Player {
 		return this.draw[0];
 	}
 	play(){
+		console.log(this);
+		if (!this.itsTurn())
+			return false;
 		this.draw.shift(this.deck.unshift());
 		this.game.next();
+		return true;
 	}
 	assimilate(draw){
 		draw.reverse();
@@ -31,5 +34,8 @@ class Player {
 	kill(){
 		draw.reverse();
 		this.game.graveyard.push(...draw);
+	}
+	itsTurn(){
+		return this.game.turn == this.pos;
 	}
 }
