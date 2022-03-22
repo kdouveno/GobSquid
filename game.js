@@ -1,10 +1,13 @@
 class Game {
 	constructor() {
-		this.players = {};
-		this.gameBeginTs = Date.now();
-		this.lastChangeTS = Date.now();
+		this.players = [];
 		this.events = new Set();
 		this.logs = [];
+		this.graveyard = [];
+
+		this.gameBeginTs = Date.now();
+		this.lastChangeTS = Date.now();
+
 		this.turn = 0; // <=> player pos
 		this.gobLocked = false;
 	}
@@ -17,6 +20,9 @@ class Game {
 		this.players[pos] = new Player(name);
 	}
 	start() {
+		this.forEachPlayer((i, p)=>{
+			p.pos = i;
+		});
 		this.turn = -1;
 		this.gameBeginTs = Date.now();
 		this.next();
@@ -46,7 +52,7 @@ class Game {
 			});
 		});
 		if (colors == 7) //Gob Event Trigger
-			this.gobLocked = new Event(undefined, undefined, 3);
+			this.gobLocked = new Event(undefined, this, 3);
 		else {
 			if (missed)
 			this.gobLocked = false;

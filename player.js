@@ -1,10 +1,14 @@
 class Player {
-	constructor(name, pos){
+	constructor(name, pos, game){
+		this.game = game;
 		this.name = name;
+		this.pos = pos;
 		this.deck = [];
 		this.draw = [];
 		this.itsTurn = false;
 		this.isDead = false;
+
+		Controls.triggers["p" + pos + "g"] = this.
 	}
 
 	topCard(){
@@ -24,5 +28,9 @@ class Player {
 	save(){
 		this.assimilate(this.draw)
 		this.draw = [];
+	}
+	kill(){
+		draw.reverse();
+		this.game.graveyard.push(...draw);
 	}
 }
