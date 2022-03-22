@@ -4,6 +4,7 @@ class Game {
 		this.events = new Set();
 		this.logs = [];
 		this.graveyard = [];
+		this.deck = [];
 
 		this.gameBeginTs = Date.now();
 		this.lastChangeTS = Date.now();
@@ -11,41 +12,65 @@ class Game {
 		this.turn = 0; // <=> player pos
 		this.gobLocked = false;
 	}
+	initDeck(){
+		for (var color = 0; color < 3; color++) {
+			this.deck.push(new Card(0, [color]));
+			for (let i = 0; i < 5; i++) {
+				this.deck.push(new Card(1, [color]));
+			}
+			for (let i = 0; i < 6; i++) {
+				this.deck.push(new Card(2, [color]));
+			}
+			for (let i = 0; i < 4; i++) {
+				this.deck.push(new Card(3, [color]));
+			}
+		}
+	}
+	distribute(){
+		utils.shuffle(this.deck);
+		var cardsPerPlayer = this.deck.length / 4;
+		this.forEachPlayer((i, p) => {
+			p.deck = this.deck.slice(cardsPerPlayer * i, cardsPerPlayer * i + cardsPerPlayer);
+		});
+	}
 	forEachPlayer(fx){
-		for(var i; i++; i < 4) {
-			fx(i, players[i]);
+
+		for(var i = 0; i < 4; i++) {
+			fx(i, this.players[i]);
 		}
 	}
 	setPlayer(name, pos) {
 		this.players[pos] = new Player(name);
 	}
 	start() {
-		this.forEachPlayer((i, p)=>{
+		this.forEachPlayer(function(i, p){
 			p.pos = i;
+			Controls["p" + i + "p"] = p.play;
+			Controls["p" + i + "g"] = p.play;
 		});
+		this.initDeck();
+		this.distribute();
 		this.turn = -1;
 		this.gameBeginTs = Date.now();
 		this.next();
 	}
 	next() {
+		this.registerEvents(this.turn);
 		do {
 			this.turn++;
 			if (this.turn > 3)
 				this.turn == 0;
-		} while (this.players[turn].isDead);
+		} while (this.players[this.turn].isDead);
 	}
 	attack(pos1, pos2) {
 		this.players[pos1].attack(this.players[pos2]);
 	}
-	play(pos){
-		this.players[pos].play;
-		this.registerEvents(pos);
-		this.next();
-	}
 	registerGobEvent(){
 		var colors = 0;
 		this.forEachPlayer((i, p) => {
-			p.topCard().colors.((c)=>{
+			var card = p.topCard();
+			if (!card) return;
+			card.colors.forEach((c)=>{
 				if (c == 3)
 					c++;
 				colors |= c;
@@ -54,7 +79,6 @@ class Game {
 		if (colors == 7) //Gob Event Trigger
 			this.gobLocked = new Event(undefined, this, 3);
 		else {
-			if (missed)
 			this.gobLocked = false;
 		}
 	}
@@ -63,10 +87,12 @@ class Game {
 
 		this.forEachPlayer((i)=>{
 			if (i != pos) {
-				var tapper = players[pos];
-				var tapped = players[i];
+				var tapper = this.players[pos];
+				var tapped = this.players[i];
 
-				var caca = this.players[i].topCard().meets(this.players[pos]);
+				var card = this.players[i].topCard();
+				if (!card) return ;
+				var caca = card.meets(this.players[pos]);
 				if (caca[0] == 2) { // register Ghost Tap Event
 					this.forEachPlayer((j) => {
 						if (players[j].isDead){
@@ -83,5 +109,8 @@ class Game {
 				this.events.add(new Event(tapper, tapped, caca[0]));
 			}
 		});
+	}
+	printGame(){
+
 	}
 }

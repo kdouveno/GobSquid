@@ -7,15 +7,14 @@ class Player {
 		this.draw = [];
 		this.itsTurn = false;
 		this.isDead = false;
-
-		Controls.triggers["p" + pos + "g"] = this.
 	}
 
 	topCard(){
-		return draw[0];
+		return this.draw[0];
 	}
 	play(){
 		this.draw.shift(this.deck.unshift());
+		this.game.next();
 	}
 	assimilate(draw){
 		draw.reverse();

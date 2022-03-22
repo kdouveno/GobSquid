@@ -23,7 +23,7 @@ class Event{
 			Controls["p" + tapper.pos + "a" + this.tapped.pos].add(this.tap);
 		} else {
 			tapped.forEachPlayer(function(i, j){
-				Controls["p"+i+"g"] = this.gob(j);
+				Controls["p" + i + "g"] = this.gob(j);
 			});
 		}
 	}
