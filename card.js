@@ -29,22 +29,23 @@ class Card {
 	 */
 	meets(card){
 		var out = [2, false];
-		var dif = Math.abs(this.card.type - card.type);
+		var dif = Math.abs(this.type - card.type);
+		
 
 		if (!dif) {
-			if (this.card.color == card.color)
+			if (this.color == card.color)
 				out[1] = true;
 			return out;
 		}
-		if (this.card.type == 0 || card.type == 0) {
+		if (this.type == 0 || card.type == 0) {
 			out[0] = 0;
-			out[1] = this.card.type > card.type;
+			out[1] = this.type > card.type;
 			return out;
 		}
 		if (dif != 1)
 			return out;
 		out[0] = 1;
-		out[1] = this.card.type > card.type;
+		out[1] = this.type > card.type;
 		return out;
 	}
 }

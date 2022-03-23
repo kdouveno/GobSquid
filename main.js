@@ -5,3 +5,4 @@ game.setPlayer("aidan", 2);
 game.setPlayer("ewen", 3);
 game.start();
 
+Controls.bindControls();

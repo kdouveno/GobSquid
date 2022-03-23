@@ -41,7 +41,7 @@ class Game {
 		}
 	}
 	setPlayer(name, pos) {
-		this.players[pos] = new Player(name);
+		this.players[pos] = new Player(name, pos, this);
 	}
 	start() {
 		this.forEachPlayer(function(i, p){
@@ -59,7 +59,8 @@ class Game {
 		do {
 			this.turn++;
 			if (this.turn > 3)
-				this.turn == 0;
+				this.turn = 0;
+				
 		} while (this.players[this.turn].isDead);
 	}
 	attack(pos1, pos2) {
@@ -83,6 +84,7 @@ class Game {
 		}
 	}
 	registerEvents(pos) {
+		this.closeEvents(false);
 		this.registerGobEvent();
 
 		this.forEachPlayer((i)=>{
@@ -92,14 +94,15 @@ class Game {
 
 				var card = this.players[i].topCard();
 				if (!card) return ;
-				var caca = card.meets(this.players[pos]);
+				var caca = card.meets(this.players[pos].topCard());
 				if (caca[0] == 2) { // register Ghost Tap Event
 					this.forEachPlayer((j) => {
-						if (players[j].isDead){
+						if (this.players[j].isDead){
 							this.events.add(new Event(players[j],players[pos], 2));
 							this.events.add(new Event(players[j],players[i], 2));
 						}
 					});
+					return ;
 				}
 				if (caca[1]) {
 					var temp = tapper;
@@ -109,5 +112,29 @@ class Game {
 				this.events.add(new Event(tapper, tapped, caca[0]));
 			}
 		});
+	}
+	closeEvents(won){
+		var player = this.players[this.turn];
+		var events = [...this.events];
+		events = events.filter((e)=>{			
+			if (Object.is(e.taper, player) || Object.is(e.tapped, player))
+				return true;
+			console.log(won && !e.winner);
+			
+			if(won && !e.winner)
+				return true;
+			console.log("sauce");
+			
+			e.end(this);
+			return false;
+		});
+		this.events = new Set(events);
+	}
+	printGame(){
+		var out = [this.players[0].topCard(), this.players[1].topCard(), this.players[2].topCard(), this.players[3].topCard()];
+		out = out.map((o)=>{
+			return (o ? o.type : "nope");
+		});
+		console.log(out[0], out[1], out[2], out[3]);
 	}
 }

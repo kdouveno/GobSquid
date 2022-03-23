@@ -6,16 +6,17 @@ class Player {
 		this.deck = [];
 		this.draw = [];
 		this.isDead = false;
+		this.play = this.play.bind(this);
 	}
 
 	topCard(){
 		return this.draw[0];
 	}
 	play(){
-		console.log(this);
 		if (!this.itsTurn())
 			return false;
-		this.draw.shift(this.deck.unshift());
+		this.game.closeEvents(true);
+		this.draw.unshift(this.deck.shift());
 		this.game.next();
 		return true;
 	}
@@ -24,16 +25,16 @@ class Player {
 		this.deck.push(...draw);
 	}
 	eat(player){
-		this.assimilate(player.draw)
+		this.assimilate(player.draw);
 		player.draw = [];
 	}
 	save(){
-		this.assimilate(this.draw)
+		this.assimilate(this.draw);
 		this.draw = [];
 	}
 	kill(){
-		draw.reverse();
-		this.game.graveyard.push(...draw);
+		this.draw.reverse();
+		this.game.graveyard.push(...this.draw);
 	}
 	itsTurn(){
 		return this.game.turn == this.pos;

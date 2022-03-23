@@ -1,0 +1,8 @@
+.control{
+	margin: 2px;
+	background-color: black;
+	height: 50px;
+	width: 50px;
+	display: inline-block;
+	color: white;
+}

@@ -14,49 +14,57 @@ class Event{
 		this.type = type;
 		this.beginTs = beginTs;
 		this.taps = false;
+		this.winner = undefined;
+		this.protect = this.protect.bind(this);
+		this.tap = this.tap.bind(this);
+		this.gob = this.gob.bind(this);
 		this.addEvents();
+
 	}
 
 	addEvents(){
 		if(this.type != 3){
-			Controls["p" + tapped.pos + "d"].add(this.protect);
-			Controls["p" + tapper.pos + "a" + this.tapped.pos].add(this.tap);
+			Controls.triggers["p" + this.tapped.pos + "d"].add(this.protect);
+			
+			Controls.triggers["p" + this.taper.pos + "a"
+			+ this.tapped.pos].add(this.tap);
 		} else {
-			tapped.forEachPlayer(function(i, j){
-				Controls["p" + i + "g"] = this.gob(j);
+			this.tapped.forEachPlayer(function(i, j){
+				Controls.triggers["p" + i + "g"] = this.gob(j);
 			});
 		}
 	}
 	clearEvents(){
 		if(this.type != 3){
-			Controls["p" + tapped.pos + "d"].delete(this.protect);
-			Controls["p" + tapper.pos + "a" + this.tapped.pos].delete(this.tap);
+			Controls.triggers["p" + this.tapped.pos + "d"].delete(this.protect);
+			Controls.triggers["p" + this.taper.pos + "a" + this.tapped.pos].delete(this.tap);
 		} else {
-			tapped.forEachPlayer(function(i, j){
-				Controls["p" + i + "g"] = undefined;
+			this.tapped.forEachPlayer(function(i, j){
+				Controls.triggers["p" + i + "g"] = undefined;
 			});
 		}
 	}
 	protect(){
-		if(this.update(tapper)){
-			tapped.save();
-		} else {
-			this.end(tapper.game);
+		if(this.update(this.tapped)){
+			this.tapped.save();
+		}
+		if (!Object.is(this.winner, this.tapped)){
+			this.end(this.winner.game);
 		}
 		return true;
 	}
 	tap(){
-		if(this.update(tapper)){
+		if(this.update(this.taper)){
 			if (this.type == 1)
-				tapper.eat(tapped);
-			else (tapped.kill());
-		} else {
-			this.end(tapper.game);
+				this.taper.eat(this.tapped);
+			else (this.tapped.kill());
 		}
+		if (!Object.is(this.winner, this.taper))
+			this.end(this.winner.game);
 	}
 	gob(player){
 		if (!this.update(player) && Object.keys(this.taps).length < 3){
-			this.taps[0].eat(player);
+			this.winner.eat(player);
 			this.player.game.forEachPlayer(function(i, j){
 				j.save();
 			});
@@ -65,11 +73,14 @@ class Event{
 	}
 	update(player){
 		var wins = !this.taps;
-		if (wins)
+		if (wins){
+			this.winner = player;
 			this.taps = {};
+		}
 		if (this.taps[player])
 			return false;
-		this.taps[player] = Date.now();
+		this.taps[player.name] = Date.now();
+		return true;
 	}
 
 	end(game){
