@@ -7,6 +7,7 @@ class Player {
 		this.draw = [];
 		this.isDead = false;
 		this.play = this.play.bind(this);
+		this.fail = false;
 	}
 
 	topCard(){
@@ -35,6 +36,17 @@ class Player {
 	kill(){
 		this.draw.reverse();
 		this.game.graveyard.push(...this.draw);
+		this.draw = [];
+	}
+	error(){
+		this.fail = new Event(game, this, 4);
+		this.game.events.add(this.fail);
+		this.fail.update(this);
+	}
+	confirmError(){
+		this.fail.end(this.game);
+		this.fail = undefined;
+		this.kill();
 	}
 	itsTurn(){
 		return this.game.turn == this.pos;

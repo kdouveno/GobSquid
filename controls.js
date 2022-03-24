@@ -45,8 +45,9 @@ Controls = {
 				});
 			}
 		}
+		console.log(out);
 		if (!out)
-			player.kill();
+			player.error();
 	},
 	bindControls(){
 		var controls = document.querySelectorAll(".control");

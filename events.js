@@ -19,29 +19,29 @@ class Event{
 		this.tap = this.tap.bind(this);
 		this.gob = this.gob.bind(this);
 		this.addEvents();
-
 	}
 
 	addEvents(){
-		if(this.type != 3){
+		if(this.type == 3){
+			this.tapped.forEachPlayer(function(i, j){
+				Controls.triggers["p" + i + "g"] = this.gob(j);
+			});
+			
+		} else if (this.type != 4) {
 			Controls.triggers["p" + this.tapped.pos + "d"].add(this.protect);
 			
 			Controls.triggers["p" + this.taper.pos + "a"
 			+ this.tapped.pos].add(this.tap);
-		} else {
-			this.tapped.forEachPlayer(function(i, j){
-				Controls.triggers["p" + i + "g"] = this.gob(j);
-			});
 		}
 	}
 	clearEvents(){
-		if(this.type != 3){
-			Controls.triggers["p" + this.tapped.pos + "d"].delete(this.protect);
-			Controls.triggers["p" + this.taper.pos + "a" + this.tapped.pos].delete(this.tap);
-		} else {
+		if(this.type == 3){
 			this.tapped.forEachPlayer(function(i, j){
 				Controls.triggers["p" + i + "g"] = undefined;
 			});
+		} else if (this.type != 4){
+			Controls.triggers["p" + this.tapped.pos + "d"].delete(this.protect);
+			Controls.triggers["p" + this.taper.pos + "a" + this.tapped.pos].delete(this.tap);
 		}
 	}
 	protect(){

@@ -116,15 +116,19 @@ class Game {
 	closeEvents(won){
 		var player = this.players[this.turn];
 		var events = [...this.events];
-		events = events.filter((e)=>{			
-			if (Object.is(e.taper, player) || Object.is(e.tapped, player))
-				return true;
-			console.log(won && !e.winner);
-			
-			if(won && !e.winner)
-				return true;
-			console.log("sauce");
-			
+		events = events.filter((e)=>{
+			if (e.type == 4)
+			{
+				e.tapped.confirmError();
+				return false;
+			}
+			if (!e.winner)
+			{
+				if (!Object.is(e.taper, player) && !Object.is(e.tapped, player))
+					return true;
+				if(won)
+					return true;
+			}
 			e.end(this);
 			return false;
 		});
@@ -133,8 +137,9 @@ class Game {
 	printGame(){
 		var out = [this.players[0].topCard(), this.players[1].topCard(), this.players[2].topCard(), this.players[3].topCard()];
 		out = out.map((o)=>{
-			return (o ? o.type : "nope");
+			return (o ? [o.type, o.color] : "nope");
 		});
 		console.log(out[0], out[1], out[2], out[3]);
+
 	}
 }
