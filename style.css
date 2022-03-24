@@ -1,8 +1,96 @@
+body{
+	margin:0;
+	--button-size: 50px;
+	--button-margin: 5px;
+	background-color: black;
+}
+
 .control{
 	margin: 2px;
-	background-color: black;
-	height: 50px;
-	width: 50px;
-	display: inline-block;
-	color: white;
+	background-color: white;
+	height: var(--button-size);
+	width: var(--button-size);
+	margin: var(--button-margin);
+	border-radius: 50%;
 }
+#game_container{
+	width:100vw;
+	height:100vh;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+.player{
+	display: inline-flex;
+}
+.player>div{
+	height: calc((var(--button-size) + var(--button-margin)) * 3 + var(--button-margin));
+	width: calc((var(--button-size) + var(--button-margin)) * 3 + var(--button-margin));
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+.p{
+	border-radius: 5px;
+}
+#p1, #p2{
+	justify-self: flex-end;
+}
+#p3, #p2{
+	align-self: flex-end;
+}
+#center{
+	position: absolute;
+	margin-left: calc(50vw - var(--button-size));
+	border: 2px solid red;
+}
+#p0>div{
+	grid-template-areas: 
+		"p0p p0a1 ."
+		"p0a3 p0a2 ."
+		"p0d p0g ."
+	;
+}
+#p1>div{
+	grid-template-areas: 
+		". p1a0 p1p"
+		". p1a3 p1a2"
+		". p1g p1d"
+	;
+}
+#p2>div{
+	grid-template-areas: 
+		". p2g p2d"
+		". p2a0 p2a1"
+		". p2a3 p2p"
+	;
+}
+#p3>div{
+	grid-template-areas: 
+		"p3d p3g ."
+		"p3a0 p3a1 ."
+		"p3p p3a2 ."
+	;
+}
+#p0g{grid-area: p0g}
+#p0p{grid-area: p0p}
+#p0d{grid-area: p0d}
+#p0a1{grid-area: p0a1}
+#p0a2{grid-area: p0a2}
+#p0a3{grid-area: p0a3}
+#p1g{grid-area: p1g}
+#p1p{grid-area: p1p}
+#p1d{grid-area: p1d}
+#p1a0{grid-area: p1a0}
+#p1a2{grid-area: p1a2}
+#p1a3{grid-area: p1a3}
+#p2g{grid-area: p2g}
+#p2p{grid-area: p2p}
+#p2d{grid-area: p2d}
+#p2a0{grid-area: p2a0}
+#p2a1{grid-area: p2a1}
+#p2a3{grid-area: p2a3}
+#p3g{grid-area: p3g}
+#p3p{grid-area: p3p}
+#p3d{grid-area: p3d}
+#p3a0{grid-area: p3a0}
+#p3a1{grid-area: p3a1}
+#p3a2{grid-area: p3a2}
