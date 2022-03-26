@@ -2,49 +2,59 @@
 <html lang="en">
 <head>
 	<title>Document</title>
-	<link rel="stylesheet" href="style.css"/>
+	<link rel="stylesheet" href="players.css"/>
+	<link rel="stylesheet" href="centerBoard.css"/>
+	<link rel="stylesheet" href="symbols.css"/>
+
+	<script src="SVGinject.js"></script>
 </head>
 <body>
+	<div id="center_board">
+		<img id="p0_draw" class="p0rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p1_draw" class="p1rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p2_draw" class="p3rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p3_draw" class="p2rot" src="symbols.svg" onload="SVGInject(this)"/>
+	</div>
 	<div id="game_container">
 		
 		<div class="player" id="p0">
 			<div>
-				<div class="control p" id="p0p">p0p</div>
-				<div class="control d" id="p0d">p0d</div>
-				<div class="control g" id="p0g">p0g</div>
-				<div class="control a1" id="p0a1">p0a1</div>
-				<div class="control a2" id="p0a2">p0a2</div>
-				<div class="control a3" id="p0a3">p0a3</div>
+				<div class="control p0rot p" id="p0p">p0p</div>
+				<div class="control p0rot d" id="p0d">p0d</div>
+				<div class="control p0rot g" id="p0g">p0g</div>
+				<div class="control p0rot a1" id="p0a1">p0a1</div>
+				<div class="control p0rot a2" id="p0a2">p0a2</div>
+				<div class="control p0rot a3" id="p0a3">p0a3</div>
 			</div>
 		</div>
 		<div class="player" id="p1">
 			<div>
-				<div class="control p" id="p1p">p1p</div>
-				<div class="control d" id="p1d">p1d</div>
-				<div class="control g" id="p1g">p1g</div>
-				<div class="control a1" id="p1a0">p1a0</div>
-				<div class="control a2" id="p1a2">p1a2</div>
-				<div class="control a3" id="p1a3">p1a3</div>
+				<div class="control p1rot p" id="p1p">p1p</div>
+				<div class="control p1rot d" id="p1d">p1d</div>
+				<div class="control p1rot g" id="p1g">p1g</div>
+				<div class="control p1rot a1" id="p1a0">p1a0</div>
+				<div class="control p1rot a2" id="p1a2">p1a2</div>
+				<div class="control p1rot a3" id="p1a3">p1a3</div>
 			</div>
 		</div>
 		<div class="player" id="p3">
 			<div>
-				<div class="control p" id="p3p">p3p</div>
-				<div class="control d" id="p3d">p3d</div>
-				<div class="control g" id="p3g">p3g</div>
-				<div class="control a1" id="p3a0">p3a0</div>
-				<div class="control a2" id="p3a1">p3a1</div>
-				<div class="control a3" id="p3a2">p3a2</div>
+				<div class="control p3rot p" id="p3p">p3p</div>
+				<div class="control p3rot d" id="p3d">p3d</div>
+				<div class="control p3rot g" id="p3g">p3g</div>
+				<div class="control p3rot a1" id="p3a0">p3a0</div>
+				<div class="control p3rot a2" id="p3a1">p3a1</div>
+				<div class="control p3rot a3" id="p3a2">p3a2</div>
 			</div>
 		</div>
 		<div class="player" id="p2">
 			<div>
-				<div class="control p" id="p2p">p2p</div>
-				<div class="control d" id="p2d">p2d</div>
-				<div class="control g" id="p2g">p2g</div>
-				<div class="control a1" id="p2a0">p2a0</div>
-				<div class="control a2" id="p2a1">p2a1</div>
-				<div class="control a3" id="p2a3">p2a2</div>
+				<div class="control p2rot p" id="p2p">p2p</div>
+				<div class="control p2rot d" id="p2d">p2d</div>
+				<div class="control p2rot g" id="p2g">p2g</div>
+				<div class="control p2rot a1" id="p2a0">p2a0</div>
+				<div class="control p2rot a2" id="p2a1">p2a1</div>
+				<div class="control p2rot a3" id="p2a3">p2a2</div>
 			</div>
 		</div>
 	</div>

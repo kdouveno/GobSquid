@@ -1,7 +1,7 @@
 body{
 	margin:0;
-	--button-size: 50px;
 	--button-margin: 5px;
+	--button-size: calc((100vw / 6) - var(--button-margin) * 2);
 	background-color: black;
 }
 
@@ -18,12 +18,14 @@ body{
 	height:100vh;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+	overflow: hidden;
+
 }
 .player{
 	display: inline-flex;
 }
 .player>div{
-	height: calc((var(--button-size) + var(--button-margin)) * 3 + var(--button-margin));
+	height: calc((var(--button-size) + var(--button-margin) * 2) * 3);
 	width: calc((var(--button-size) + var(--button-margin)) * 3 + var(--button-margin));
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -94,3 +96,16 @@ body{
 #p3a0{grid-area: p3a0}
 #p3a1{grid-area: p3a1}
 #p3a2{grid-area: p3a2}
+
+.p0rot{
+	transform: rotate(135deg);
+}
+.p1rot{
+	transform: rotate(225deg);
+}
+.p2rot{
+	transform: rotate(315deg);
+}
+.p3rot{
+	transform: rotate(45deg);
+}

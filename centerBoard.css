@@ -1,0 +1,14 @@
+body {
+	--center-size: calc(100vw / 3);
+}
+
+#center_board{
+	position: absolute;
+	border: 1px solid red;
+	height: var(--center-size);
+	width: var(--center-size);
+	top: calc(50vh - var(--center-size) / 2);
+	left: calc(50vw - var(--center-size) / 2);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
