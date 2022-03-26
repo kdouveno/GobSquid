@@ -137,9 +137,9 @@ class Game {
 	printGame(){
 		var out = [this.players[0].topCard(), this.players[1].topCard(), this.players[2].topCard(), this.players[3].topCard()];
 		out = out.map((o)=>{
-			return (o ? [o.type, o.color] : "nope");
+			return (o ? o.type + " " + o.color : "nope");
 		});
 		console.log(out[0], out[1], out[2], out[3]);
-
+		console.log(this.players[0].deck.length + this.players[0].draw.length, this.players[1].deck.length + this.players[1].draw.length, this.players[2].deck.length + this.players[2].draw.length, this.players[3].deck.length + this.players[3].draw.length)
 	}
 }

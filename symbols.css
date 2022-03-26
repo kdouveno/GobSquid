@@ -2,3 +2,33 @@ svg{
 	height: 100%;
 	width: 100%;
 }
+.card {
+	--color1: white;
+	--color2: var(--color1);
+	fill: none;
+	stroke: white;
+	stroke-width: 100;
+	stroke-linejoin: round;
+}
+.card.error{
+	--color1: red;
+}
+.card>.type.dots{
+	stroke:none;
+	fill: var(--color1);
+}
+.card>.type{
+	display: none;
+}
+.card.star>.type.star{
+	display: initial;
+}
+.card.dots>.type.dots{
+	display: initial;
+}
+.card.triangle>.type.triangle{
+	display: initial;
+}
+.card.square>.type.square{
+	display: initial;
+}

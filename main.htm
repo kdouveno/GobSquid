@@ -7,13 +7,14 @@
 	<link rel="stylesheet" href="symbols.css"/>
 
 	<script src="SVGinject.js"></script>
+	<script src="jquery.min.js"></script>
 </head>
 <body>
 	<div id="center_board">
-		<img id="p0_draw" class="p0rot" src="symbols.svg" onload="SVGInject(this)"/>
-		<img id="p1_draw" class="p1rot" src="symbols.svg" onload="SVGInject(this)"/>
-		<img id="p2_draw" class="p3rot" src="symbols.svg" onload="SVGInject(this)"/>
-		<img id="p3_draw" class="p2rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p0_draw" class="card_slot p0rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p1_draw" class="card_slot p1rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p3_draw" class="card_slot p3rot" src="symbols.svg" onload="SVGInject(this)"/>
+		<img id="p2_draw" class="card_slot p2rot" src="symbols.svg" onload="SVGInject(this)"/>
 	</div>
 	<div id="game_container">
 		
@@ -59,6 +60,7 @@
 		</div>
 	</div>
 </body>
+<script src="interface.js"></script>
 <script src="controls.js"></script>
 <script src="events.js"></script>
 <script src="utils.js"></script>

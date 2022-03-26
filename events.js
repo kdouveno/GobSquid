@@ -61,6 +61,7 @@ class Event{
 		}
 		if (!Object.is(this.winner, this.taper))
 			this.end(this.winner.game);
+		return true;
 	}
 	gob(player){
 		if (!this.update(player) && Object.keys(this.taps).length < 3){
@@ -70,6 +71,7 @@ class Event{
 			});
 			this.end(player.game);
 		}
+		return true;
 	}
 	update(player){
 		var wins = !this.taps;
