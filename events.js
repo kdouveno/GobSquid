@@ -8,21 +8,23 @@ class Event{
 	 * 
 	 * 3 : Gobbit
 	 */
-	constructor (taper, tapped, type, beginTs = Date.now()){
+	constructor (taper, tapped, type){
 		this.taper = taper;
 		this.tapped = tapped;
 		this.type = type;
-		this.beginTs = beginTs;
+		this.beginTs = Date.now();
 		this.taps = false;
 		this.winner = undefined;
 		this.protect = this.protect.bind(this);
 		this.tap = this.tap.bind(this);
 		this.gob = this.gob.bind(this);
+		this.conclusion = ()=>{};
 		this.addEvents();
 	}
 
 	addEvents(){
 		if(this.type == 3){
+
 			this.tapped.forEachPlayer(function(i, j){
 				Controls.triggers["p" + i + "g"] = this.gob(j);
 			});
@@ -45,28 +47,36 @@ class Event{
 		}
 	}
 	protect(){
+		if(this.tapped.game.gobLocked)
+			return false;
 		if(this.update(this.tapped)){
-			this.tapped.save();
-		}
-		if (!Object.is(this.winner, this.tapped)){
-			this.end(this.winner.game);
+			this.conclusion = ()=>this.tapped.save();
 		}
 		return true;
 	}
 	tap(){
+		if(this.tapped.game.gobLocked)
+			return false;
 		if(this.update(this.taper)){
+			if(this.tapped.isTapped)
+				return true;
 			if (this.type == 1)
-				this.taper.eat(this.tapped);
-			else (this.tapped.kill());
+				this.conclusion = ()=>{
+					this.taper.eat(this.tapped);
+					this.tapped.isTapped = false;
+				}
+			else this.conclusion = ()=>{
+				console.log("tape type = " + this.type);
+				this.tapped.kill();
+				this.tapped.isTapped = false;
+			}
 		}
-		if (!Object.is(this.winner, this.taper))
-			this.end(this.winner.game);
 		return true;
 	}
 	gob(player){
-		if (!this.update(player) && Object.keys(this.taps).length < 3){
+		if (this.update(player) && Object.keys(this.taps).length >= 3){
 			this.winner.eat(player);
-			this.player.game.forEachPlayer(function(i, j){
+			this.conclusion = ()=>this.player.game.forEachPlayer(function(i, j){
 				j.save();
 			});
 			this.end(player.game);
@@ -79,16 +89,31 @@ class Event{
 			this.winner = player;
 			this.taps = {};
 		}
-		if (this.taps[player])
+		if (this.taps[player.pos])
 			return false;
-		this.taps[player.name] = Date.now();
+		this.taps[player.pos] = Date.now();
+		I.updateEvent(this);
 		return true;
 	}
 
 	end(game){
 		this.endTs = Date.now();
+
+		this.conclusion();
 		game.logs.push(this);
 		game.events.delete(this);
 		this.clearEvents();
+	}
+
+	isWon(){
+		if (this.winner){
+			return Object.is(this.winner, this.taper);
+		}
+		return false;
+	}
+	looser(){
+		if (this.winner){
+			return Object.is(this.winner, this.taper) ? this.tapped : this.taper;
+		}
 	}
 }

@@ -35,7 +35,6 @@ class Game {
 		});
 	}
 	forEachPlayer(fx){
-
 		for(var i = 0; i < 4; i++) {
 			fx(i, this.players[i]);
 		}
@@ -55,13 +54,13 @@ class Game {
 		this.next();
 	}
 	next() {
-		this.registerEvents(this.turn);
 		do {
 			this.turn++;
 			if (this.turn > 3)
 				this.turn = 0;
 				
 		} while (this.players[this.turn].isDead);
+		this.closeEvents(false);
 	}
 	attack(pos1, pos2) {
 		this.players[pos1].attack(this.players[pos2]);
@@ -84,7 +83,6 @@ class Game {
 		}
 	}
 	registerEvents(pos) {
-		this.closeEvents(false);
 		this.registerGobEvent();
 
 		this.forEachPlayer((i)=>{
@@ -113,22 +111,12 @@ class Game {
 			}
 		});
 	}
-	closeEvents(won){
+	closeEvents(){
 		var player = this.players[this.turn];
 		var events = [...this.events];
 		events = events.filter((e)=>{
-			if (e.type == 4)
-			{
-				e.tapped.confirmError();
-				return false;
-			}
-			if (!e.winner)
-			{
-				if (!Object.is(e.taper, player) && !Object.is(e.tapped, player))
+			if (!e.winner && !Object.is(e.taper, player) && !Object.is(e.tapped, player))
 					return true;
-				if(won)
-					return true;
-			}
 			e.end(this);
 			return false;
 		});
@@ -137,7 +125,7 @@ class Game {
 	printGame(){
 		var out = [this.players[0].topCard(), this.players[1].topCard(), this.players[2].topCard(), this.players[3].topCard()];
 		out = out.map((o)=>{
-			return (o ? o.type + " " + o.color : "nope");
+			return (o ? o.type + " " + o.colors : "nope");
 		});
 		console.log(out[0], out[1], out[2], out[3]);
 		console.log(this.players[0].deck.length + this.players[0].draw.length, this.players[1].deck.length + this.players[1].draw.length, this.players[2].deck.length + this.players[2].draw.length, this.players[3].deck.length + this.players[3].draw.length)

@@ -8,6 +8,7 @@ class Player {
 		this.isDead = false;
 		this.play = this.play.bind(this);
 		this.fail = false;
+		this.isTapped = false;
 	}
 
 	topCard(){
@@ -16,9 +17,9 @@ class Player {
 	play(){
 		if (!this.itsTurn())
 			return false;
-		this.game.closeEvents(true);
-		this.draw.unshift(this.deck.shift());
 		this.game.next();
+		this.draw.unshift(this.deck.shift());
+		this.game.registerEvents(this.pos);
 		I.updateDraw(this);
 		return true;
 	}
@@ -47,10 +48,10 @@ class Player {
 		this.fail = new Event(game, this, 4);
 		this.game.events.add(this.fail);
 		this.fail.update(this);
+		this.fail.conclusion = ()=>this.confirmError();
 		console.log("player " + this.pos + " errored");
 	}
 	confirmError(){
-		this.fail.end(this.game);
 		this.fail = undefined;
 		this.kill();
 	}

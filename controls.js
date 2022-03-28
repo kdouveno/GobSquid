@@ -45,7 +45,6 @@ Controls = {
 				});
 			}
 		}
-		console.log(out);
 		if (!out)
 			player.error();
 	},
@@ -53,10 +52,8 @@ Controls = {
 		var controls = document.querySelectorAll(".control");
 		controls.forEach((node)=>{
 			node.addEventListener("click", ()=>{
+				console.log("entry: " + node.id);
 				Controls.trigger(node.id);
-
-				console.log(node.id);
-				game.printGame();
 			});
 		});
 	}

@@ -17,5 +17,35 @@ I = {
 		game.forEachPlayer((undefined,p)=>{
 			this.updateDraw(p);
 		});
+	},
+	updateEvent: function(e){
+		var winner = e.winner.pos;
+		var tapsTab = Object.keys(e.taps);
+		if (winner){
+			var won = e.isWon();
+			if (tapsTab.length == 1){
+				if (won){
+					console.log(winner + " --> " + e.tapped.pos);
+					// TODO: attack animation
+				}
+				else{
+					console.log(winner + " |<- " + e.taper.pos);
+					// TODO: defend animation
+				}
+			}else{
+				var looser = e.looser().pos;
+				if (won){
+					console.log(looser + " <-| " + winner);
+
+					// TODO: fail defend animation
+				} else {
+					console.log(looser + " ->| " + winner);
+
+					// TODO: fail attack animation
+				}
+			}
+		} else {
+			console.log("no winner");
+		}
 	}
 }
