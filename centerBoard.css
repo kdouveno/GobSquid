@@ -1,6 +1,11 @@
 body {
 	--center-size: calc(100vw / 3);
 }
+@media (min-aspect-ratio: 1 / 1) {
+	body{
+		--center-size: calc(100vh / 3);
+	}
+}
 
 #center_board{
 	position: absolute;

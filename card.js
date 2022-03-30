@@ -32,6 +32,10 @@ class Card {
 		var dif = Math.abs(this.type - card.type);
 		
 
+		if (this.color == card.color){
+			
+		}
+
 		if (!dif) {
 			if (this.color == card.color)
 				out[1] = true;
@@ -47,5 +51,12 @@ class Card {
 		out[0] = 1;
 		out[1] = this.type > card.type;
 		return out;
+	}
+	colorsMatch(card){
+		return this.colors.reduce((out, c)=>{
+			return out | card.colors.reduce((out2, c2)=>{
+				return out2 | c2 == out;
+			}, out);
+		}, 0);
 	}
 }

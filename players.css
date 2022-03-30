@@ -4,6 +4,12 @@ body{
 	--button-size: calc((100vw / 6) - var(--button-margin) * 2);
 	background-color: black;
 }
+@media (min-aspect-ratio: 1 / 1) {
+	body{
+		--button-size: calc((100vh / 6) - var(--button-margin) * 2);
+	}
+
+}
 
 .control{
 	margin: 2px;
@@ -29,6 +35,7 @@ body{
 	width: calc((var(--button-size) + var(--button-margin)) * 3 + var(--button-margin));
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
 }
 .p{
 	border-radius: 5px;
@@ -71,6 +78,36 @@ body{
 		"p3a0 p3a1 ."
 		"p3p p3a2 ."
 	;
+}
+@media (min-aspect-ratio: 1 / 1) {
+	#p0>div{
+		grid-template-areas: 
+			"p0p p0a1 p0d"
+			"p0a3 p0a2 p0g"
+			". . ."
+		;
+	}
+	#p1>div{
+		grid-template-areas: 
+			"p1d p1a0 p1p"
+			"p1g p1a3 p1a2"
+			". . ."
+		;
+	}
+	#p2>div{
+		grid-template-areas: 
+			". . ."
+			"p2g p2a0 p2a1"
+			"p2d p2a3 p2p"
+		;
+	}
+	#p3>div{
+		grid-template-areas: 
+			". . ."
+			"p3a0 p3a1 p3g"
+			"p3p p3a2 p3d"
+		;
+	}
 }
 #p0g{grid-area: p0g}
 #p0p{grid-area: p0p}
