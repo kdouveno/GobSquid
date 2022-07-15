@@ -32,30 +32,25 @@ class Card {
 		var dif = Math.abs(this.type - card.type);
 		
 
-		if (this.color == card.color){
-			
-		}
-
-		if (!dif) {
-			if (this.color == card.color)
+		if (this.colorsMatch(card)){
+			if (!dif)
 				out[1] = true;
-			return out;
-		}
-		if (this.type == 0 || card.type == 0) {
-			out[0] = 0;
+			if (this.type == 0 || card.type == 0) {
+				out[0] = 0;
+				out[1] = this.type > card.type;
+				return out;
+			}
+			if (dif != 1)
+				return out;
+			out[0] = 1;
 			out[1] = this.type > card.type;
-			return out;
 		}
-		if (dif != 1)
-			return out;
-		out[0] = 1;
-		out[1] = this.type > card.type;
 		return out;
 	}
 	colorsMatch(card){
 		return this.colors.reduce((out, c)=>{
 			return out | card.colors.reduce((out2, c2)=>{
-				return out2 | c2 == out;
+				return out2 | c2 == c;
 			}, out);
 		}, 0);
 	}

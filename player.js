@@ -28,17 +28,20 @@ class Player {
 		this.deck.push(...draw);
 	}
 	eat(player){
+		console.log(this.pos + " eats "+ player.draw.length + " cards from " + player.pos);
 		this.assimilate(player.draw);
 		player.draw = [];
 		I.updateDraw(player);
 	}
 	save(){
+		console.log(this.pos + " saves " + this.draw.length);
 		this.assimilate(this.draw);
 		this.draw = [];
 		I.updateDraw(this);
-
 	}
 	kill(){
+		console.log(this.pos + " kills "+ this.draw.length + " cards from its draw pile");
+
 		this.draw.reverse();
 		this.game.graveyard.push(...this.draw);
 		this.draw = [];
@@ -49,7 +52,6 @@ class Player {
 		this.game.events.add(this.fail);
 		this.fail.update(this);
 		this.fail.conclusion = ()=>this.confirmError();
-		console.log("player " + this.pos + " errored");
 	}
 	confirmError(){
 		this.fail = undefined;

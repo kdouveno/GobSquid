@@ -2,33 +2,65 @@ svg{
 	height: 100%;
 	width: 100%;
 }
-.card {
+.card_slot {
 	--color1: white;
 	--color2: var(--color1);
 	fill: none;
-	stroke: white;
+	stroke: var(--color1);
 	stroke-width: 100;
 	stroke-linejoin: round;
 }
-.card.error{
-	--color1: red;
+.card_slot.color0{
+	--color1: yellow;
 }
-.card>.type.dots{
+.card_slot.color1{
+	--color1: cyan;
+}
+.card_slot.color2{
+	--color1: magenta;
+}
+.card_slot.color10{
+	--color2: yellow;
+}
+.card_slot.color11{
+	--color2: cyan;
+}
+.card_slot.color12{
+	--color2: magenta;
+}
+.card_slot.error{
+	opacity: .5;
+}
+.card_slot .type.dots{
 	stroke:none;
 	fill: var(--color1);
 }
-.card>.type{
+.card_slot .type.dots>ellipse:first-child{
+	fill: var(--color2);
+}
+.card_slot .type{
 	display: none;
 }
-.card.star>.type.star{
+.card_slot.star .type.star{
 	display: initial;
 }
-.card.dots>.type.dots{
+.card_slot.dots .type.dots{
 	display: initial;
 }
-.card.triangle>.type.triangle{
+.card_slot.triangle .type.triangle{
 	display: initial;
 }
-.card.square>.type.square{
+.card_slot.square .type.square{
 	display: initial;
+}
+@keyframes play {
+	0%{
+		transform: scale(1.2);
+	}
+	100%{
+		transform: scale(1);
+	}
+}
+.card_slot.star, .card_slot.dots, .card_slot.triangle, .card_slot.square{
+	animation: play 1s cubic-bezier(0.16, 1, 0.3, 1);
 }

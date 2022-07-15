@@ -14,16 +14,22 @@ class Game {
 		Controls.game = this;
 	}
 	initDeck(){
+		this.deck.push(new Card(1, [0, 1]));
+		this.deck.push(new Card(1, [0, 2]));
+		this.deck.push(new Card(1, [1, 0]));
+		this.deck.push(new Card(1, [1, 2]));
+		this.deck.push(new Card(1, [2, 0]));
+		this.deck.push(new Card(1, [2, 1]));
 		for (var color = 0; color < 3; color++) {
 			this.deck.push(new Card(0, [color]));
-			for (let i = 0; i < 5; i++) {
-				this.deck.push(new Card(1, [color]));
+			for (let i = 0; i < 3; i++) {
+				this.deck.push(new Card(1, [color, color]));
 			}
 			for (let i = 0; i < 6; i++) {
-				this.deck.push(new Card(2, [color]));
+				this.deck.push(new Card(2, [color, color]));
 			}
 			for (let i = 0; i < 4; i++) {
-				this.deck.push(new Card(3, [color]));
+				this.deck.push(new Card(3, [color, color]));
 			}
 		}
 	}
