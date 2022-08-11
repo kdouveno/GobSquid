@@ -33,8 +33,8 @@ class Game {
 			}
 		}
 	}
-	distribute(){
-		utils.shuffle(this.deck);
+	distribute(seed){
+		utils.shuffle(this.deck, seed);
 		var cardsPerPlayer = this.deck.length / 4;
 		this.forEachPlayer((i, p) => {
 			p.deck = this.deck.slice(cardsPerPlayer * i, cardsPerPlayer * i + cardsPerPlayer);
