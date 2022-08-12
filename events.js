@@ -7,6 +7,8 @@ class Event{
 	 * 2 : ghost kill
 	 * 
 	 * 3 : Gobbit
+	 * 
+	 * 4 : errorLog
 	 */
 	constructor (taper, tapped, type){
 		this.taper = taper;
@@ -38,7 +40,7 @@ class Event{
 	}
 	clearEvents(){
 		if(this.type == 3){
-			this.tapped.forEachPlayer(function(i, j){
+			this.tapped.forEachPlayer(function(i){
 				Controls.triggers["p" + i + "g"] = undefined;
 			});
 		} else if (this.type != 4){
@@ -93,7 +95,7 @@ class Event{
 			return false;
 		this.taps[player.pos] = Date.now();
 		I.updateEvent(this);
-		return true;
+		return wins;
 	}
 
 	end(game){

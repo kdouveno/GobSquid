@@ -12,6 +12,10 @@ class Game {
 		this.turn = 0; // <=> player pos
 		this.gobLocked = false;
 		Controls.game = this;
+		
+	}
+	get printDistribution(){
+		return this.players.map(o=>`${o.deck.length} + ${o.draw.length} = ${o.deck.length + o.draw.length}`).forEach(o=>console.log(o));
 	}
 	initDeck(){
 		this.deck.push(new Card(1, [0, 1]));
@@ -122,7 +126,7 @@ class Game {
 		var events = [...this.events];
 		events = events.filter((e)=>{
 			if (!e.winner && !Object.is(e.taper, player) && !Object.is(e.tapped, player))
-					return true;
+				return true;
 			e.end(this);
 			return false;
 		});
